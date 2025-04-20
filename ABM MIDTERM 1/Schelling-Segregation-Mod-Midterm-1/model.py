@@ -12,14 +12,24 @@ class SchellingModel(Model):
         self.width = width
         self.height = height
         self.density = density
+
+        ##MODIFICATION - added distinct tolerances for degree of mixing in 
+        #neighborhoods for different types of agents.
         self.desired_share_alike_latino = desired_share_alike_latino
         self.desired_share_alike_asian = desired_share_alike_asian
         self.desired_share_alike_black = desired_share_alike_black
         self.desired_share_alike_white = desired_share_alike_white
 
-        self.group_one_share = group_one_share
-        self.group_two_share = group_two_share
-        self.group_three_share = group_three_share
+        ##MODIFICATION - added group shares for 3 types intialized from 2020 
+        #Chicago census data
+
+        self.group_one_share = group_one_share #Latinos make up 29% of Chi
+        self.group_two_share = group_two_share #White ppl make up 36% of Chi
+        self.group_three_share = group_three_share #Black ppl make up 28% of Chi
+
+        #Note the fourth group of agents is calculated as the 
+        #difference of 1.0 and the three other groups therefore they are not 
+        #represented as a slider in the GUI, Asians make up abt 7% of Chi
 
         self.radius = radius
         ## Create grid
@@ -46,7 +56,8 @@ class SchellingModel(Model):
         for cont, pos in self.grid.coord_iter():
             if self.random.random() < self.density:
                 r = self.random.random()
-                #If-else statement segements  agents into 4 categories
+                
+                ##MODIFICATION If-else statement segements  agents into 4 categories
                 #approximating a rough distribution of Black, Latino, Asian,
                 #and White people in Chicago.
 
@@ -66,15 +77,6 @@ class SchellingModel(Model):
                     agent_type = 0 #Asian
 
                 self.grid.place_agent(SchellingAgent(self, agent_type), pos)
-
-
-                '''
-                if self.random.random() < self.group_one_share:
-                    self.grid.place_agent(SchellingAgent(self, 1), pos)
-                else:
-                    self.grid.place_agent(SchellingAgent(self, 0), pos)
-
-                '''
 
         ## Initialize datacollector
         self.datacollector.collect(self)
