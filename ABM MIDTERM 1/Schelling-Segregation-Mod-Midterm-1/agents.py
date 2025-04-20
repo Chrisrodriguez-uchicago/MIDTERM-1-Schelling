@@ -7,14 +7,19 @@ class SchellingAgent(Agent):
         ## Set agent type
         self.type = agent_type
 
+        ##The following if-else statement is used to set group-sepcifc tolerance
+        ##based on type, intialized according to empirical findings of lower
+        #tolerance for diverity for whites, higher for black people and mid-low
+        #for Asian and Hispanic people
+
         if self.type == 0: #Asian
-            self.tolerance = model.desired_share_alike_asian
+            self.tolerance = model.desired_share_alike_asian #0.4
         elif self.type == 1: #Latino
-            self.tolerance = model.desired_share_alike_latino
+            self.tolerance = model.desired_share_alike_latino #0.3
         elif self.type == 2: # white
-            self.tolerance = model.desired_share_alike_white
+            self.tolerance = model.desired_share_alike_white #0.5
         elif self.type == 3: #black
-            self.tolerance = model.desired_share_alike_black
+            self.tolerance = model.desired_share_alike_black #0.25
 
     ## Define basic decision rule
     def move(self):
@@ -33,3 +38,4 @@ class SchellingAgent(Agent):
             self.model.grid.move_to_empty(self)
         else:
             self.model.happy += 1
+
