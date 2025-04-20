@@ -148,4 +148,3 @@ page = SolaraViz(
 )
 ## Return page
 page
-
